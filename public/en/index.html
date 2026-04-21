@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/favicon/olefoot-Ball.png" type="image/png">
+<link rel="apple-touch-icon" href="/favicon/olefoot-Ball.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OLEFOOT — Football Now Thinks</title>
+<meta name="description" content="Build your team in a game that learns from legends, evolves with AI and delivers a completely new football experience.">
+<link rel="alternate" hreflang="pt-BR" href="https://www.olefoot.com/">
+<link rel="alternate" hreflang="en" href="https://www.olefoot.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://www.olefoot.com/">
+<link rel="stylesheet" href="../fonts/face.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+<style>
+  /* ─── TOKENS ─────────────────────────────── */
+  :root {
+    --black:   #080808;
+    --yellow:  #FFD200;
+    --yellow2: #FFC000;
+    --white:   #F5F0E8;
+    --gray:    #1A1A1A;
+    --gray2:   #2A2A2A;
+    --muted:   #888880;
+    --font-display: "Agency FB", "Barlow Condensed", "Arial Narrow", sans-serif;
+    --font-body:    "Barlow", "Helvetica Neue", Arial, sans-serif;
+    --font-serif:   "Moret", "Playfair Display", Georgia, serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: var(--font-body); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ─── NAV ────────────────────────────────── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: linear-gradient(to bottom, rgba(8,8,8,0.95) 0%, transparent 100%); backdrop-filter: blur(0px); transition: backdrop-filter 0.3s, background 0.3s; }
+  nav.scrolled { background: rgba(8,8,8,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,210,0,0.08); }
+  .nav-links { display: flex; gap: 32px; list-style: none; font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .nav-links li a:hover { color: var(--yellow); transition: color 0.2s; }
+  .nav-cta { font-family: var(--font-display); font-size: 13px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; background: var(--yellow); color: var(--black); padding: 10px 24px; cursor: pointer; border: none; transition: background 0.2s, transform 0.15s; }
+  .nav-cta:hover { background: #fff; transform: translateY(-1px); }
+  .lang-switch { display: flex; align-items: center; gap: 5px; font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .lang-switch a { transition: color 0.2s; }
+  .lang-switch a:hover { color: var(--white); }
+  .lang-switch a.active { color: var(--yellow); }
+  .lang-switch span { color: rgba(255,255,255,0.15); font-size: 9px; }
+
+  /* ─── HERO ───────────────────────────────── */
+  #hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background-image: url('../assets/lugano-topo.png'); background-size: cover; background-position: center top; z-index: 0; }
+  .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(8,8,8,0.35) 0%, rgba(8,8,8,0.15) 30%, rgba(8,8,8,0.55) 65%, rgba(8,8,8,0.92) 100%); }
+  .hero-content-side { position: relative; z-index: 2; padding: 0 64px 72px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--yellow); z-index: 3; }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-eyebrow { font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--yellow); display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 32px; height: 2px; background: var(--yellow); }
+  .hero-headline { font-family: var(--font-display); font-size: clamp(60px, 6.5vw, 108px); font-weight: 900; line-height: 0.92; letter-spacing: -0.01em; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
+  .hero-headline .accent { color: var(--yellow); }
+  .hero-headline .italic { font-style: italic; font-family: var(--font-serif); font-weight: 700; font-size: 0.88em; text-transform: none; letter-spacing: 0.01em; color: var(--yellow); }
+  .hero-sub { font-size: 17px; font-weight: 300; line-height: 1.6; color: rgba(245,240,232,0.75); max-width: 560px; margin: 24px 0 36px; text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
+  .hero-sub strong { color: var(--white); font-weight: 500; }
+  .hero-actions { display: flex; align-items: center; gap: 24px; margin-bottom: 44px; }
+  .btn-primary { font-family: var(--font-display); font-size: 15px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; background: var(--yellow); color: var(--black); padding: 17px 40px; border: none; cursor: pointer; display: inline-block; transition: transform 0.2s; }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-ghost { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 10px; transition: color 0.2s; }
+  .btn-ghost:hover { color: var(--white); }
+  .btn-ghost::before { content: '▶'; font-size: 9px; color: var(--yellow); }
+  .hero-info-boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; position: relative; z-index: 2; }
+  .info-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,210,0,0.1); padding: 18px 20px; transition: background 0.2s, border-color 0.2s; }
+  .info-box:hover { background: rgba(255,210,0,0.05); border-color: rgba(255,210,0,0.25); }
+  .info-box-num { font-family: var(--font-display); font-size: 32px; font-weight: 900; color: var(--yellow); line-height: 1; letter-spacing: -0.02em; }
+  .info-box-label { font-family: var(--font-body); font-size: 11px; font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .hero-scroll { position: absolute; right: 48px; bottom: 72px; display: flex; flex-direction: column; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); z-index: 3; }
+  .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--yellow), transparent); animation: scrollLine 2s ease-in-out infinite; }
+  @keyframes scrollLine { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+  /* ─── SECTION BASE ───────────────────────── */
+  section { position: relative; overflow: hidden; }
+  .section-label { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase; color: var(--yellow); display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .section-label::before { content: ''; width: 30px; height: 2px; background: var(--yellow); display: inline-block; }
+  .section-title { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.93; color: var(--white); }
+
+  /* ─── AMBASSADOR ────────────────────────── */
+  #ambassador { background: var(--yellow); position: relative; overflow: hidden; min-height: 600px; display: flex; align-items: stretch; }
+  .amb-slide { display: none; width: 100%; min-height: 600px; position: relative; }
+  .amb-slide.active { display: flex; }
+  .amb-photo { width: 42%; flex-shrink: 0; background: #111; position: relative; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; }
+  .amb-photo-img { width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(100%) contrast(1.1); mix-blend-mode: luminosity; position: absolute; inset: 0; }
+  .amb-photo::after { content: ''; position: absolute; top: 0; right: 0; width: 6px; height: 100%; background: var(--yellow); z-index: 2; }
+  .amb-number { position: absolute; font-family: var(--font-display); font-size: 320px; font-weight: 900; color: rgba(255,210,0,0.07); bottom: -40px; right: -20px; line-height: 1; letter-spacing: -0.06em; pointer-events: none; user-select: none; z-index: 1; }
+  .amb-content { flex: 1; background: var(--black); padding: 70px 64px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+  .amb-tag { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase; color: var(--yellow); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .amb-tag::before { content: ''; display: inline-block; width: 28px; height: 2px; background: var(--yellow); }
+  .amb-name { font-family: var(--font-display); font-size: clamp(56px, 6vw, 96px); font-weight: 900; text-transform: uppercase; line-height: 0.9; letter-spacing: -0.02em; color: var(--white); margin-bottom: 6px; }
+  .amb-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 32px; display: flex; align-items: center; gap: 16px; }
+  .amb-title::before { content: '◆'; color: var(--yellow); font-size: 8px; }
+  .amb-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+  .amb-badge { font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 6px 14px; border: 1px solid rgba(255,210,0,0.25); color: var(--yellow); }
+  .amb-badge.highlight { background: var(--yellow); color: var(--black); border-color: var(--yellow); }
+  .amb-quote { font-family: var(--font-serif); font-size: clamp(18px, 2vw, 24px); font-style: italic; line-height: 1.45; color: rgba(245,240,232,0.75); padding-left: 20px; border-left: 2px solid var(--yellow); margin-bottom: 40px; max-width: 520px; }
+  .amb-nav { display: flex; align-items: center; gap: 20px; margin-top: auto; }
+  .amb-nav-btn { width: 44px; height: 44px; border: 1.5px solid rgba(255,255,255,0.15); background: transparent; color: var(--white); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-family: var(--font-display); font-weight: 700; }
+  .amb-nav-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+  .amb-dots { display: flex; gap: 8px; align-items: center; }
+  .amb-dot { width: 20px; height: 2px; background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.2s; }
+  .amb-dot.active { background: var(--yellow); width: 36px; }
+  .amb-counter { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); margin-left: 8px; }
+  .amb-counter strong { color: var(--yellow); }
+
+  /* ─── HOW IT WORKS ───────────────────────── */
+  #how { padding: 120px 48px; background: var(--black); }
+  .how-inner { max-width: 1200px; margin: 0 auto; }
+  .how-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 80px; }
+  .how-title { font-size: clamp(52px, 5.5vw, 86px); }
+  .how-desc { font-size: 16px; line-height: 1.7; color: rgba(245,240,232,0.55); font-weight: 300; padding-bottom: 8px; }
+  .how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .how-step { background: var(--gray); padding: 48px 40px; position: relative; overflow: hidden; transition: background 0.3s; cursor: default; }
+  .how-step::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: transparent; transition: background 0.3s; }
+  .how-step:hover { background: #1E1E1E; }
+  .how-step:hover::before { background: var(--yellow); }
+  .step-num { font-family: var(--font-display); font-size: 96px; font-weight: 900; color: rgba(255,210,0,0.07); line-height: 1; position: absolute; top: 20px; right: 24px; letter-spacing: -0.04em; transition: color 0.3s; }
+  .how-step:hover .step-num { color: rgba(255,210,0,0.12); }
+  .step-icon { width: 40px; height: 40px; border: 1.5px solid rgba(255,210,0,0.3); display: flex; align-items: center; justify-content: center; margin-bottom: 28px; color: var(--yellow); font-size: 18px; }
+  .step-title { font-family: var(--font-display); font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--white); margin-bottom: 14px; line-height: 1.1; }
+  .step-body { font-size: 14px; line-height: 1.7; color: rgba(245,240,232,0.5); font-weight: 300; }
+
+  /* ─── AI ENGINE ──────────────────────────── */
+  #ai { padding: 120px 48px; background: var(--gray); position: relative; }
+  #ai::before { content: 'AI'; position: absolute; font-family: var(--font-display); font-size: 420px; font-weight: 900; color: rgba(255,210,0,0.025); top: 50%; left: 50%; transform: translate(-50%, -50%); letter-spacing: -0.06em; pointer-events: none; user-select: none; white-space: nowrap; }
+  .ai-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+  .ai-title { font-size: clamp(48px, 5vw, 80px); margin-bottom: 30px; }
+  .ai-features { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+  .ai-feature { display: flex; align-items: flex-start; gap: 20px; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .ai-feature:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+  .ai-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); margin-top: 7px; flex-shrink: 0; }
+  .ai-feat-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
+  .ai-feat-body { font-size: 13px; line-height: 1.6; color: rgba(245,240,232,0.45); font-weight: 300; }
+  .ai-diagram { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,210,0,0.1); padding: 48px; position: relative; }
+  .flow-title { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); margin-bottom: 36px; }
+  .flow-nodes { display: flex; flex-direction: column; gap: 4px; }
+  .flow-node { display: flex; align-items: center; gap: 16px; padding: 14px 20px; background: rgba(255,210,0,0.03); border-left: 2px solid rgba(255,210,0,0.15); transition: border-color 0.3s, background 0.3s; cursor: default; }
+  .flow-node:hover { border-left-color: var(--yellow); background: rgba(255,210,0,0.07); }
+  .flow-node-num { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--yellow); opacity: 0.6; width: 24px; }
+  .flow-node-text { font-family: var(--font-display); font-size: 18px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); }
+  .flow-node-arrow { margin-left: auto; color: rgba(255,210,0,0.3); font-size: 12px; }
+  .positions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 28px; }
+  .pos-tag { background: rgba(255,210,0,0.06); border: 1px solid rgba(255,210,0,0.12); padding: 8px 10px; text-align: center; font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: var(--yellow); transition: background 0.2s; }
+  .pos-tag:hover { background: rgba(255,210,0,0.15); }
+
+  /* ─── EXPERIENCE ─────────────────────────── */
+  #experience { padding: 120px 48px; background: var(--black); }
+  .exp-inner { max-width: 1200px; margin: 0 auto; }
+  .exp-header { text-align: center; margin-bottom: 80px; }
+  .exp-title { font-size: clamp(52px, 5.5vw, 88px); }
+  .exp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .exp-card { background: var(--gray); padding: 52px 40px; position: relative; overflow: hidden; cursor: default; transition: background 0.3s; }
+  .exp-card:hover { background: #1E1E1E; }
+  .exp-card.featured { background: var(--yellow); }
+  .exp-card.featured:hover { background: var(--yellow2); }
+  .exp-card-num { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.3em; color: var(--muted); margin-bottom: 40px; }
+  .exp-card.featured .exp-card-num { color: rgba(0,0,0,0.35); }
+  .exp-card-title { font-family: var(--font-display); font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.03em; color: var(--white); line-height: 1.05; margin-bottom: 16px; }
+  .exp-card.featured .exp-card-title { color: var(--black); }
+  .exp-card-body { font-size: 14px; line-height: 1.7; color: rgba(245,240,232,0.45); font-weight: 300; }
+  .exp-card.featured .exp-card-body { color: rgba(0,0,0,0.6); }
+
+  /* ─── CTA FINAL ──────────────────────────── */
+  #cta-final { background: var(--yellow); padding: 140px 48px; text-align: center; position: relative; overflow: hidden; }
+  #cta-final::before { content: 'OLEFOOT'; position: absolute; font-family: var(--font-display); font-size: 320px; font-weight: 900; color: rgba(0,0,0,0.05); top: 50%; left: 50%; transform: translate(-50%,-50%); white-space: nowrap; letter-spacing: -0.04em; pointer-events: none; user-select: none; }
+  .cta-inner { position: relative; z-index: 1; }
+  .cta-eyebrow { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(0,0,0,0.45); margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .cta-eyebrow::before, .cta-eyebrow::after { content: ''; display: inline-block; width: 40px; height: 2px; background: rgba(0,0,0,0.3); }
+  .cta-title { font-family: var(--font-display); font-size: clamp(52px, 7vw, 108px); font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.93; color: var(--black); margin-bottom: 20px; }
+  .cta-title .serif { font-family: var(--font-serif); font-style: italic; text-transform: none; font-weight: 700; letter-spacing: 0.01em; display: block; }
+  .cta-sub { font-size: 16px; color: rgba(0,0,0,0.55); font-weight: 300; line-height: 1.6; max-width: 480px; margin: 0 auto 52px; }
+  .btn-black { font-family: var(--font-display); font-size: 17px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; background: var(--black); color: var(--yellow); padding: 22px 60px; border: none; cursor: pointer; display: inline-block; transition: transform 0.2s, background 0.2s; }
+  .btn-black:hover { background: #1a1a1a; transform: translateY(-3px); }
+
+  /* ─── FOOTER ─────────────────────────────── */
+  footer { background: var(--black); padding: 48px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px; border-top: 1px solid rgba(255,210,0,0.1); }
+  .footer-brand { display: block; line-height: 0; }
+  .footer-brand img { height: calc(28px * 1.1); width: auto; display: block; margin: 0 auto; }
+  .footer-legal { font-size: 12px; color: var(--muted); font-weight: 300; letter-spacing: 0.05em; }
+  .footer-social { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px 28px; font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .footer-social a:hover { color: var(--yellow); transition: color 0.2s; }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ─── RESPONSIVE ─────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .nav-cta { padding: 9px 16px; font-size: 12px; }
+    #hero { min-height: 100svh; }
+    .hero-content-side { padding: 0 24px 52px; }
+    .hero-headline { font-size: clamp(48px, 12vw, 72px); }
+    .hero-sub { font-size: 14px; margin: 16px 0 28px; }
+    .hero-scroll { display: none; }
+    .hero-actions { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .btn-primary { padding: 15px 28px; font-size: 13px; }
+    .hero-info-boxes { grid-template-columns: repeat(3,1fr); gap: 2px; }
+    .info-box { padding: 14px 12px; }
+    .info-box-num { font-size: 24px; }
+    .amb-slide { flex-direction: column; min-height: auto; }
+    .amb-photo { width: 100%; height: 380px; }
+    .amb-number { font-size: 180px; }
+    .amb-content { padding: 32px 24px 36px; }
+    .amb-name { font-size: clamp(40px, 10vw, 64px); }
+    #how { padding: 80px 20px; }
+    .how-header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; }
+    .how-steps { grid-template-columns: 1fr; gap: 2px; }
+    .how-step { padding: 36px 28px; }
+    .step-num { font-size: 64px; top: 12px; right: 16px; }
+    #ai { padding: 80px 20px; }
+    #ai::before { font-size: 200px; }
+    .ai-inner { grid-template-columns: 1fr; gap: 48px; }
+    .positions-grid { grid-template-columns: repeat(6, 1fr); }
+    #experience { padding: 80px 20px; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .exp-card { padding: 40px 28px; }
+    #cta-final { padding: 80px 20px; }
+    #cta-final::before { font-size: 120px; }
+    .cta-title { font-size: clamp(40px, 11vw, 72px); }
+    footer { gap: 22px; padding: 36px 20px; }
+  }
+  @media (max-width: 480px) {
+    .hero-headline { font-size: clamp(46px, 14vw, 68px); }
+    .amb-photo { height: 300px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="../index.html"><img src="../assets/assinatura-amarelo.png" alt="Olefoot" style="height:36px;display:block;"></a>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#ambassador">Ambassador</a></li>
+    <li><a href="#ai">Real-Time AI</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="blog/">Blog</a></li>
+    <li><a href="../contato.html">Contact</a></li>
+  </ul>
+  <div class="lang-switch"><a href="../index.html">PT</a><span>/</span><a class="active" href="index.html">EN</a></div>
+  <button class="nav-cta" onclick="document.getElementById('cta-final').scrollIntoView({behavior:'smooth'})">Build My Team</button>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bar"></div>
+  <div class="hero-content-side">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Next-Gen Football Intelligence</div>
+      <h1 class="hero-headline">
+        Choose your<br>
+        future<br>
+        <span class="accent italic">Now.</span>
+      </h1>
+      <p class="hero-sub">
+        Build your team in a game that <strong>learns from legends</strong>, evolves with AI and delivers a completely new football experience.
+      </p>
+      <div class="hero-actions">
+        <a href="#cta-final" class="btn-primary">Build My Team</a>
+        <a href="#how" class="btn-ghost">How it works</a>
+      </div>
+      <div class="hero-info-boxes">
+        <div class="info-box">
+          <div class="info-box-num">11</div>
+          <div class="info-box-label">Agents per team</div>
+        </div>
+        <div class="info-box">
+          <div class="info-box-num">∞</div>
+          <div class="info-box-label">Possible matches</div>
+        </div>
+        <div class="info-box">
+          <div class="info-box-num">AI</div>
+          <div class="info-box-label">Native engine</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="how-inner">
+    <div class="how-header">
+      <div>
+        <div class="section-label reveal">How It Works</div>
+        <h2 class="section-title how-title reveal reveal-delay-1">Three steps.<br>One living<br><span style="color:var(--yellow)">system.</span></h2>
+      </div>
+      <p class="how-desc reveal reveal-delay-2">
+        Not your average football game. It's an evolution platform where every on-field decision is made by real intelligence — trained on the knowledge of the sport's greatest.
+      </p>
+    </div>
+    <div class="how-steps">
+      <div class="how-step reveal reveal-delay-1">
+        <div class="step-num">01</div>
+        <div class="step-icon">⬡</div>
+        <div class="step-title">Build<br>your team</div>
+        <p class="step-body">Create your lineup, choose your tactical identity and define your club's DNA within the platform.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-2">
+        <div class="step-num">02</div>
+        <div class="step-icon">◈</div>
+        <div class="step-title">Play with<br>smart AI</div>
+        <p class="step-body">Each player is an autonomous agent. Real-time decisions. Dynamic behavior. Every match is unique.</p>
+      </div>
+      <div class="how-step reveal reveal-delay-3">
+        <div class="step-num">03</div>
+        <div class="step-icon">◬</div>
+        <div class="step-title">Evolve with<br>legends</div>
+        <p class="step-body">Access the knowledge of champions eternalized as trainable intelligence. Learn from those who made it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ambassador">
+  <div class="amb-slide active" data-index="0">
+    <div class="amb-photo">
+      <img src="../assets/lugano-embaixador.png" alt="Diego Lugano" class="amb-photo-img">
+      <div class="amb-number">5</div>
+    </div>
+    <div class="amb-content">
+      <div class="amb-tag">Olefoot Ambassador</div>
+      <h2 class="amb-name">Diego<br>Lugano</h2>
+      <div class="amb-title">Defender — Captain — Legend</div>
+      <div class="amb-badges">
+        <span class="amb-badge highlight">World Champion</span>
+        <span class="amb-badge">Uruguay</span>
+        <span class="amb-badge">PSG</span>
+        <span class="amb-badge">Fenerbahçe</span>
+        <span class="amb-badge">São Paulo FC</span>
+        <span class="amb-badge">West Brom</span>
+      </div>
+      <blockquote class="amb-quote">
+        "Football has always been about intelligence. Olefoot is the first place where that truly happens inside a game."
+      </blockquote>
+      <div class="amb-nav">
+        <button class="amb-nav-btn" onclick="ambPrev()">←</button>
+        <button class="amb-nav-btn" onclick="ambNext()">→</button>
+        <div class="amb-dots">
+          <div class="amb-dot active" onclick="ambGo(0)"></div>
+          <div class="amb-dot" onclick="ambGo(1)"></div>
+        </div>
+        <span class="amb-counter"><strong>1</strong> / 2</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ai">
+  <div class="ai-inner">
+    <div>
+      <div class="section-label reveal">Real-Time Decisions</div>
+      <h2 class="section-title ai-title reveal reveal-delay-1">Real<br>decisions.<br><span style="color:var(--yellow)">In real<br>time.</span></h2>
+      <div class="ai-features">
+        <div class="ai-feature reveal reveal-delay-1">
+          <div class="ai-dot"></div>
+          <div>
+            <div class="ai-feat-title">Position agents</div>
+            <p class="ai-feat-body">Each position has a collective brain trained on real football behaviors.</p>
+          </div>
+        </div>
+        <div class="ai-feature reveal reveal-delay-2">
+          <div class="ai-dot"></div>
+          <div>
+            <div class="ai-feat-title">Dynamic behavior</div>
+            <p class="ai-feat-body">No script. No repetition. The game responds to every play's context.</p>
+          </div>
+        </div>
+        <div class="ai-feature reveal reveal-delay-3">
+          <div class="ai-dot"></div>
+          <div>
+            <div class="ai-feat-title">Continuous learning</div>
+            <p class="ai-feat-body">The system evolves with every match, making the experience increasingly intelligent.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-diagram reveal reveal-delay-2">
+      <div class="flow-title">// player mental flow</div>
+      <div class="flow-nodes">
+        <div class="flow-node"><span class="flow-node-num">01</span><span class="flow-node-text">Perception</span><span class="flow-node-arrow">→</span></div>
+        <div class="flow-node"><span class="flow-node-num">02</span><span class="flow-node-text">Intention</span><span class="flow-node-arrow">→</span></div>
+        <div class="flow-node"><span class="flow-node-num">03</span><span class="flow-node-text">Decision</span><span class="flow-node-arrow">→</span></div>
+        <div class="flow-node"><span class="flow-node-num">04</span><span class="flow-node-text">Action</span><span class="flow-node-arrow">↺</span></div>
+      </div>
+      <div style="margin-top: 28px;">
+        <div class="flow-title">// active agents</div>
+        <div class="positions-grid">
+          <div class="pos-tag">GK</div><div class="pos-tag">RB</div><div class="pos-tag">CB</div><div class="pos-tag">LB</div>
+          <div class="pos-tag">DM</div><div class="pos-tag">CM</div><div class="pos-tag">AM</div><div class="pos-tag">RW</div>
+          <div class="pos-tag">LW</div><div class="pos-tag">CF</div><div class="pos-tag">ST</div>
+          <div class="pos-tag" style="background:rgba(255,210,0,0.15);color:var(--yellow);border-color:rgba(255,210,0,0.3)">+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="exp-inner">
+    <div class="exp-header">
+      <div class="section-label reveal" style="justify-content:center">Game Experience</div>
+      <h2 class="section-title exp-title reveal reveal-delay-1">One game.<br><span style="color:var(--yellow)">Infinite matches.</span></h2>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card reveal reveal-delay-1">
+        <div class="exp-card-num">01 — Tactics</div>
+        <div class="exp-card-title">Tactical<br>intelligence</div>
+        <p class="exp-card-body">Each position has unique tactical behaviors. Pressing, covering space, creating passing lanes — all calculated in real time.</p>
+      </div>
+      <div class="exp-card featured reveal reveal-delay-2">
+        <div class="exp-card-num">02 — Live</div>
+        <div class="exp-card-title">Live<br>matches</div>
+        <p class="exp-card-body">No two games are alike. Agent behavior shifts with every context, creating situations that are impossible to predict.</p>
+      </div>
+      <div class="exp-card reveal reveal-delay-3">
+        <div class="exp-card-num">03 — Evolution</div>
+        <div class="exp-card-title">Continuous<br>evolution</div>
+        <p class="exp-card-body">The system learns from every match played. The more you play, the smarter the game gets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta-final">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Enter the new football</div>
+    <h2 class="cta-title">
+      Build your team.
+      <span class="serif">Enter the future.</span>
+    </h2>
+    <p class="cta-sub">Create your lineup, play with smart AI and evolve with the legacy of the greatest.</p>
+    <a href="#" class="btn-black">Start Now</a>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-brand"><img src="../assets/assinatura-amarelo.png" alt="Olefoot"></a>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/olefootbr/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="https://www.youtube.com/@olefoot" target="_blank" rel="noopener noreferrer">YouTube</a>
+    <a href="https://www.linkedin.com/company/olefoot" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+  <div class="footer-legal">© 2026 Olefoot. All rights reserved.</div>
+</footer>
+
+<script>
+  let ambCurrent = 0;
+  const ambSlides = document.querySelectorAll('.amb-slide');
+  const ambTotal = ambSlides.length;
+  function ambGo(idx) { ambSlides[ambCurrent].classList.remove('active'); ambCurrent = (idx + ambTotal) % ambTotal; ambSlides[ambCurrent].classList.add('active'); }
+  function ambNext() { ambGo(ambCurrent + 1); }
+  function ambPrev() { ambGo(ambCurrent - 1); }
+  setInterval(ambNext, 6000);
+
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+  document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "olefoot-lp26",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Olefoot landing page (static HTML)",
+  "scripts": {
+    "start": "serve public",
+    "serve": "serve public"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}

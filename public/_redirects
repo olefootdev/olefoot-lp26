@@ -1,0 +1,5 @@
+# Garante que /en sem barra redireciona corretamente
+/en  /en/  301
+
+# Garante que /en/blog sem barra redireciona corretamente
+/en/blog  /en/blog/  301
