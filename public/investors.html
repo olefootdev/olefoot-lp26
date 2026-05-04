@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/favicon/olefoot-Ball.png" type="image/png">
+<link rel="apple-touch-icon" href="/favicon/olefoot-Ball.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OLEFOOT — Investors</title>
+<meta name="description" content="Olefoot busca $250K para 15% de equity. Mobile-first football management game com IA nativa. Break-even no mês 8. Copa do Mundo 2026 como janela de lançamento.">
+<link rel="stylesheet" href="fonts/face.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  /* ─── TOKENS ─────────────────────────────── */
+  :root {
+    --black:   #080808;
+    --yellow:  #FFD200;
+    --white:   #F5F0E8;
+    --gray:    #1A1A1A;
+    --gray2:   #2A2A2A;
+    --muted:   #888880;
+    --font-display: "Agency FB", "Barlow Condensed", "Arial Narrow", sans-serif;
+    --font-body:    "Barlow", "Helvetica Neue", Arial, sans-serif;
+    --font-serif:   "Moret", "Playfair Display", Georgia, serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ─── NAV ────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(8,8,8,0.96);
+    border-bottom: 1px solid rgba(255,210,0,0.08);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo { font-family: var(--font-display); font-size: 28px; font-weight: 900; letter-spacing: 0.12em; color: var(--yellow); }
+  .nav-logo span { color: var(--white); }
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+    font-family: var(--font-display); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  }
+  .nav-links li a:hover { color: var(--yellow); transition: color 0.2s; }
+  .nav-links li a.active { color: var(--yellow); }
+  .nav-cta {
+    font-family: var(--font-display); font-size: 13px; font-weight: 800;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    background: var(--yellow); color: var(--black);
+    padding: 10px 24px; border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s; display: inline-block;
+  }
+  .nav-cta:hover { background: #fff; transform: translateY(-1px); }
+  .nav-login {
+    font-family: var(--font-display); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: #fff; text-decoration: none;
+    margin-right: 18px; padding-right: 18px;
+    border-right: 1px solid rgba(255,255,255,0.25); transition: color 0.2s;
+  }
+  .nav-login:hover { color: var(--yellow); }
+
+  /* ─── PAGE HERO ──────────────────────────── */
+  .page-hero {
+    min-height: 580px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 120px 48px 72px;
+    position: relative; overflow: hidden;
+    background: var(--black);
+    border-bottom: 1px solid rgba(255,210,0,0.08);
+  }
+  .page-hero::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 6px; background: var(--yellow);
+  }
+  .page-hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,210,0,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,210,0,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,210,0,0.08);
+    border: 1px solid rgba(255,210,0,0.2);
+    padding: 8px 18px;
+    font-family: var(--font-display); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--yellow);
+    margin-bottom: 32px; position: relative; z-index: 1;
+    width: fit-content;
+  }
+  .hero-badge::before { content: '●'; font-size: 7px; }
+  .page-hero-content { position: relative; z-index: 1; max-width: 900px; }
+  .page-eyebrow {
+    font-family: var(--font-display); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.4em; text-transform: uppercase; color: var(--yellow);
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  }
+  .page-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 2px; background: var(--yellow); }
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 6.5vw, 96px);
+    font-weight: 900; text-transform: uppercase;
+    line-height: 0.92; letter-spacing: -0.02em; color: var(--white);
+    margin-bottom: 28px;
+  }
+  .page-title .accent { color: var(--yellow); }
+  .page-title .italic {
+    font-style: italic;
+    font-family: var(--font-serif);
+    font-weight: 700; font-size: 0.9em;
+    text-transform: none; letter-spacing: 0.01em;
+    color: var(--yellow);
+  }
+  .page-sub {
+    font-size: 18px; font-weight: 300; line-height: 1.65;
+    color: rgba(245,240,232,0.65); max-width: 640px;
+    margin-bottom: 44px;
+  }
+  .page-sub strong { color: var(--white); font-weight: 500; }
+  .hero-cta-row { display: flex; align-items: center; gap: 24px; }
+  .btn-primary {
+    font-family: var(--font-display); font-size: 15px; font-weight: 800;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    background: var(--yellow); color: var(--black);
+    padding: 17px 40px; border: none; cursor: pointer;
+    display: inline-block; transition: transform 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-ghost-link {
+    font-family: var(--font-display); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+    display: flex; align-items: center; gap: 10px; transition: color 0.2s;
+  }
+  .btn-ghost-link::before { content: '▶'; font-size: 9px; color: var(--yellow); }
+  .btn-ghost-link:hover { color: var(--white); }
+
+  /* ─── DEAL SNAPSHOT ──────────────────────── */
+  #deal {
+    padding: 80px 48px;
+    background: var(--yellow);
+    position: relative; overflow: hidden;
+  }
+  .deal-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 3fr;
+    gap: 64px; align-items: center;
+  }
+  .deal-label-col .deal-eyebrow {
+    font-family: var(--font-display); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.4em; text-transform: uppercase; color: rgba(8,8,8,0.55);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  }
+  .deal-label-col .deal-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--black); display: inline-block; }
+  .deal-label-col h2 {
+    font-family: var(--font-display); font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900; text-transform: uppercase; line-height: 0.92;
+    letter-spacing: -0.01em; color: var(--black);
+  }
+  .deal-label-col h2 .italic {
+    font-style: italic; font-family: var(--font-serif);
+    font-size: 0.88em; text-transform: none;
+    display: block; letter-spacing: 0.01em;
+  }
+  .deal-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .deal-card {
+    background: rgba(8,8,8,0.07); padding: 24px 20px;
+    border-left: 3px solid rgba(8,8,8,0.15);
+  }
+  .deal-card-label {
+    font-family: var(--font-display); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.35em; text-transform: uppercase; color: rgba(8,8,8,0.55);
+    margin-bottom: 10px;
+  }
+  .deal-card-val {
+    font-family: var(--font-display); font-size: clamp(26px, 3vw, 38px);
+    font-weight: 900; line-height: 1; color: var(--black);
+    letter-spacing: -0.02em;
+  }
+  .deal-card-val.highlight {
+    background: var(--black); color: var(--yellow);
+    display: inline-block; padding: 4px 10px;
+  }
+  .deal-card-sub {
+    font-size: 12px; font-weight: 300; color: rgba(8,8,8,0.6);
+    margin-top: 6px; line-height: 1.4;
+  }
+
+  /* ─── MARKET STATS ───────────────────────── */
+  #market {
+    padding: 100px 48px;
+    background: var(--black);
+    border-bottom: 1px solid rgba(255,210,0,0.06);
+  }
+  .market-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--font-display); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.4em; text-transform: uppercase; color: var(--yellow);
+    display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+  }
+  .section-label::before { content: ''; width: 30px; height: 2px; background: var(--yellow); display: inline-block; }
+  .section-title {
+    font-family: var(--font-display); font-weight: 900;
+    text-transform: uppercase; letter-spacing: -0.01em;
+    line-height: 0.93; color: var(--white);
+    font-size: clamp(40px, 5vw, 72px); margin-bottom: 12px;
+  }
+  .section-title .accent { color: var(--yellow); }
+  .section-title .italic {
+    font-style: italic; font-family: var(--font-serif);
+    font-weight: 700; font-size: 0.88em; text-transform: none;
+    color: var(--yellow);
+  }
+  .section-sub {
+    font-size: 16px; font-weight: 300; line-height: 1.65;
+    color: rgba(245,240,232,0.5); max-width: 560px; margin-bottom: 60px;
+  }
+  .market-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  }
+  .market-stat {
+    background: var(--gray); padding: 32px 24px;
+    border-left: 3px solid rgba(255,210,0,0.2);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .market-stat:hover { background: #222; border-color: var(--yellow); }
+  .market-stat-num {
+    font-family: var(--font-display); font-size: clamp(36px, 4vw, 52px);
+    font-weight: 900; letter-spacing: -0.02em; color: var(--yellow);
+    line-height: 1; margin-bottom: 10px;
+  }
+  .market-stat-title {
+    font-family: var(--font-display); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--white);
+    margin-bottom: 6px;
+  }
+  .market-stat-desc {
+    font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.5;
+  }
+  .market-callout {
+    margin-top: 40px;
+    background: rgba(255,210,0,0.05);
+    border: 1px solid rgba(255,210,0,0.15);
+    border-left: 4px solid var(--yellow);
+    padding: 24px 28px;
+    font-size: 15px; font-weight: 300; line-height: 1.65;
+    color: rgba(245,240,232,0.7);
+  }
+  .market-callout strong { color: var(--white); font-weight: 500; }
+
+  /* ─── COUNTDOWN + TRACTION ───────────────── */
+  #countdown-section {
+    padding: 100px 48px;
+    background: var(--gray);
+    border-bottom: 1px solid rgba(255,210,0,0.06);
+  }
+  .countdown-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .countdown-left {}
+  .countdown-clock {
+    display: flex; gap: 3px; margin: 36px 0 28px;
+  }
+  .clock-unit {
+    background: var(--black); padding: 20px 18px 16px; text-align: center;
+    min-width: 88px;
+  }
+  .clock-num {
+    font-family: var(--font-display); font-size: 52px; font-weight: 900;
+    line-height: 1; letter-spacing: -0.03em; color: var(--yellow);
+    display: block;
+  }
+  .clock-label {
+    font-family: var(--font-display); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted);
+    margin-top: 6px; display: block;
+  }
+  .countdown-desc {
+    font-size: 14px; font-weight: 300; line-height: 1.65;
+    color: rgba(245,240,232,0.5);
+  }
+  .countdown-desc strong { color: var(--white); font-weight: 500; }
+  .traction-grid {
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .traction-item {
+    background: var(--black); padding: 24px 24px;
+    display: flex; align-items: center; gap: 24px;
+    transition: background 0.2s;
+  }
+  .traction-item:hover { background: #111; }
+  .traction-num {
+    font-family: var(--font-display); font-size: 36px; font-weight: 900;
+    letter-spacing: -0.02em; color: var(--yellow); line-height: 1;
+    min-width: 110px; flex-shrink: 0;
+  }
+  .traction-info {}
+  .traction-title {
+    font-family: var(--font-display); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--white);
+    margin-bottom: 3px;
+  }
+  .traction-desc { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.4; }
+
+  /* ─── PITCH DECK ─────────────────────────── */
+  #deck {
+    padding: 100px 48px;
+    background: var(--black);
+    border-bottom: 1px solid rgba(255,210,0,0.06);
+  }
+  .deck-inner { max-width: 1200px; margin: 0 auto; }
+  .deck-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 32px; gap: 24px; flex-wrap: wrap;
+  }
+  .deck-actions { display: flex; gap: 12px; flex-shrink: 0; }
+  .btn-download {
+    font-family: var(--font-display); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    background: transparent; color: var(--yellow);
+    border: 1px solid rgba(255,210,0,0.3); padding: 12px 24px;
+    cursor: pointer; transition: all 0.2s; display: inline-flex;
+    align-items: center; gap: 10px;
+  }
+  .btn-download::before { content: '↓'; font-size: 14px; }
+  .btn-download:hover { background: rgba(255,210,0,0.07); border-color: var(--yellow); }
+  .deck-viewer {
+    width: 100%; aspect-ratio: 4/3;
+    background: #111;
+    border: 1px solid rgba(255,210,0,0.1);
+    position: relative; overflow: hidden;
+  }
+  .deck-viewer iframe {
+    width: 100%; height: 100%; border: none; display: block;
+  }
+  .deck-fallback {
+    display: none;
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 20px; padding: 60px 24px; text-align: center;
+  }
+  .deck-fallback-icon { font-size: 48px; opacity: 0.3; }
+  .deck-fallback p {
+    font-size: 15px; font-weight: 300; color: var(--muted); max-width: 320px;
+  }
+  .deck-note {
+    margin-top: 16px;
+    font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.2);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .deck-note::before { content: '◆'; font-size: 7px; color: var(--yellow); }
+
+  /* ─── CTA + FORM ─────────────────────────── */
+  #form-section {
+    padding: 100px 48px 120px;
+    background: var(--gray);
+  }
+  .form-section-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.6fr; gap: 100px; align-items: start;
+  }
+  .form-left { position: sticky; top: 100px; }
+  .form-left-desc {
+    font-size: 15px; line-height: 1.75; color: rgba(245,240,232,0.45);
+    font-weight: 300; margin-bottom: 36px;
+  }
+  .form-left-items { display: flex; flex-direction: column; gap: 14px; }
+  .form-left-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    font-size: 14px; color: rgba(245,240,232,0.5); font-weight: 300; line-height: 1.5;
+  }
+  .form-left-item::before { content: '◆'; font-size: 7px; color: var(--yellow); flex-shrink: 0; margin-top: 5px; }
+  .form-divider { width: 100%; height: 1px; background: rgba(255,210,0,0.1); margin: 32px 0; }
+  .confidential-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-display); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: rgba(255,210,0,0.4);
+  }
+  .confidential-tag::before { content: '●'; font-size: 7px; }
+
+  /* Form */
+  .investor-form { display: flex; flex-direction: column; gap: 3px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+  .form-group { display: flex; flex-direction: column; }
+  .form-label {
+    font-family: var(--font-display); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--yellow);
+    padding: 14px 20px 0; background: var(--black);
+  }
+  .form-input {
+    background: var(--black); border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: var(--white); font-family: var(--font-body);
+    font-size: 15px; font-weight: 300;
+    padding: 10px 20px 16px; outline: none; width: 100%;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-input:focus { background: #111; border-bottom-color: var(--yellow); }
+  .form-input::placeholder { color: rgba(255,255,255,0.15); font-size: 14px; }
+
+  /* Confirm investment chip */
+  .confirm-group {
+    background: var(--black); padding: 18px 20px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .confirm-label {
+    font-family: var(--font-display); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--yellow);
+    margin-bottom: 14px; display: block;
+  }
+  .confirm-chips { display: flex; gap: 6px; }
+  .confirm-chip {
+    font-family: var(--font-display); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 10px 24px; border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.35); cursor: pointer;
+    transition: all 0.15s; user-select: none; background: transparent;
+  }
+  .confirm-chip:hover { border-color: rgba(255,210,0,0.4); color: var(--white); }
+  .confirm-chip.selected { background: var(--yellow); color: var(--black); border-color: var(--yellow); }
+
+  .form-submit-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 0 0; gap: 20px;
+  }
+  .form-disclaimer {
+    font-size: 12px; color: rgba(255,255,255,0.2);
+    font-weight: 300; line-height: 1.5; max-width: 300px;
+  }
+  .btn-submit {
+    font-family: var(--font-display); font-size: 16px; font-weight: 800;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    background: var(--yellow); color: var(--black);
+    padding: 18px 44px; border: none; cursor: pointer;
+    display: inline-block; transition: transform 0.2s, background 0.2s;
+    white-space: nowrap;
+  }
+  .btn-submit:hover { transform: translateY(-2px); }
+  .btn-submit:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+  .form-success {
+    display: none; background: rgba(255,210,0,0.08);
+    border: 1px solid rgba(255,210,0,0.25); padding: 40px 28px;
+    font-family: var(--font-display); font-size: 24px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--yellow);
+    text-align: center; margin-top: 3px;
+  }
+  .form-success p {
+    font-family: var(--font-body); font-size: 15px; font-weight: 300;
+    letter-spacing: 0; text-transform: none;
+    color: rgba(245,240,232,0.5); margin-top: 10px;
+  }
+  .form-error {
+    display: none; background: rgba(255,60,0,0.08);
+    border: 1px solid rgba(255,60,0,0.25); padding: 20px 24px;
+    font-family: var(--font-display); font-size: 14px; font-weight: 700;
+    letter-spacing: 0.06em; color: #FF6040; margin-top: 3px;
+  }
+
+  /* ─── FOOTER ─────────────────────────────── */
+  footer {
+    background: var(--black); padding: 48px 24px;
+    display: flex; flex-direction: column;
+    align-items: center; text-align: center; gap: 28px;
+    border-top: 1px solid rgba(255,210,0,0.1);
+  }
+  .footer-brand { display: block; line-height: 0; }
+  .footer-brand img { height: 31px; width: auto; display: block; margin: 0 auto; }
+  .footer-legal { font-size: 12px; color: var(--muted); font-weight: 300; letter-spacing: 0.05em; }
+  .footer-social {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 20px 28px; font-family: var(--font-display); font-size: 12px;
+    font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+  }
+  .footer-social a:hover { color: var(--yellow); transition: color 0.2s; }
+  .lang-switch {
+    display: flex; align-items: center; gap: 5px;
+    font-family: var(--font-display); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
+  .lang-switch a { transition: color 0.2s; }
+  .lang-switch a:hover { color: var(--white); }
+  .lang-switch a.active { color: var(--yellow); }
+  .lang-switch span { color: rgba(255,255,255,0.15); font-size: 9px; }
+
+  /* ─── RESPONSIVE ─────────────────────────── */
+  @media (max-width: 1100px) {
+    .deal-inner { grid-template-columns: 1fr; gap: 40px; }
+    .deal-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .nav-login { margin-right: 10px; padding-right: 10px; font-size: 11px; }
+    .page-hero { padding: 100px 20px 56px; min-height: auto; }
+    #deal { padding: 60px 20px; }
+    #market { padding: 72px 20px; }
+    #countdown-section { padding: 72px 20px; }
+    #deck { padding: 72px 20px; }
+    #form-section { padding: 72px 20px 80px; }
+    .market-stats { grid-template-columns: repeat(2, 1fr); }
+    .countdown-inner { grid-template-columns: 1fr; gap: 48px; }
+    .countdown-clock { gap: 2px; }
+    .clock-unit { min-width: 68px; padding: 16px 12px 12px; }
+    .clock-num { font-size: 38px; }
+    .form-section-inner { grid-template-columns: 1fr; gap: 48px; }
+    .form-left { position: static; }
+    .form-row { grid-template-columns: 1fr; }
+    .form-submit-row { flex-direction: column; align-items: stretch; }
+    .btn-submit { text-align: center; }
+    .form-disclaimer { max-width: 100%; }
+    .deck-viewer { aspect-ratio: 3/4; }
+    .deck-header { flex-direction: column; align-items: flex-start; }
+    footer { gap: 22px; padding: 36px 20px; }
+  }
+  @media (max-width: 600px) {
+    .deal-cards { grid-template-columns: 1fr; }
+    .market-stats { grid-template-columns: 1fr; }
+    .hero-cta-row { flex-direction: column; align-items: flex-start; }
+    .confirm-chips { flex-direction: column; }
+    .confirm-chip { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html"><img src="assets/assinatura-amarelo.png" alt="Olefoot" style="height:36px;display:block;"></a>
+  <ul class="nav-links">
+    <li><a href="index.html#how">Como funciona</a></li>
+    <li><a href="index.html#ai">AI Engine</a></li>
+    <li><a href="whitepaper/">Whitepaper</a></li>
+    <li><a href="investors.html" class="active">Investors</a></li>
+    <li><a href="blog/">Blog</a></li>
+    <li><a href="contato.html">Contato</a></li>
+  </ul>
+  <div class="lang-switch"><a class="active" href="investors.html">PT</a><span>/</span><a href="en/">EN</a></div>
+  <a href="https://game.olefoot.com/login" class="nav-login">Entrar</a>
+  <a href="https://game.olefoot.com/cadastro" class="nav-cta">Criar Time</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-content">
+    <div class="hero-badge">Round Seed · $250K · 15% Equity · Confidencial</div>
+    <div class="page-eyebrow">Olefoot · Investment Opportunity · 2026</div>
+    <h1 class="page-title">
+      O futebol virou<br>
+      o maior negócio<br>
+      do <span class="italic">entretenimento.</span><br>
+      <span class="accent">A janela está aberta.</span>
+    </h1>
+    <p class="page-sub">
+      Um jogo de gestão de futebol mobile-first com IA generativa nativa.
+      <strong>A profundidade do Football Manager em sessões de 5 minutos</strong>,
+      em português, para o maior mercado de futebol do planeta — lançando na
+      maior Copa do Mundo da história.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#form-section" class="btn-primary">Tenho Interesse</a>
+      <a href="#deck" class="btn-ghost-link">Ver Pitch Deck</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     DEAL SNAPSHOT
+════════════════════════════════════════════ -->
+<section id="deal">
+  <div class="deal-inner">
+    <div class="deal-label-col">
+      <div class="deal-eyebrow">O Negócio</div>
+      <h2>O deal<br>em 10<br><span class="italic">segundos.</span></h2>
+    </div>
+    <div class="deal-cards">
+      <div class="deal-card">
+        <div class="deal-card-label">Investimento / Equity</div>
+        <div class="deal-card-val highlight">$250K</div>
+        <div class="deal-card-sub">15% equity · 18 meses de runway</div>
+      </div>
+      <div class="deal-card">
+        <div class="deal-card-label">Valuation Pré-Money</div>
+        <div class="deal-card-val">US$ 1,67M</div>
+        <div class="deal-card-sub">Pós-money: US$ 1,92M</div>
+      </div>
+      <div class="deal-card">
+        <div class="deal-card-label">Break-Even</div>
+        <div class="deal-card-val">Mês 8</div>
+        <div class="deal-card-sub">Modelo conservador · cashflow real</div>
+      </div>
+      <div class="deal-card">
+        <div class="deal-card-label">Receita Ano 1</div>
+        <div class="deal-card-val">$154K</div>
+        <div class="deal-card-sub">5 streams de monetização</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     MARKET IN NUMBERS
+════════════════════════════════════════════ -->
+<section id="market">
+  <div class="market-inner">
+    <div class="section-label">Mercado</div>
+    <h2 class="section-title">
+      Por que agora.<br>
+      Por que <span class="italic">Brasil.</span>
+    </h2>
+    <p class="section-sub">
+      Futebol é o maior mercado de entretenimento do planeta. Mobile gaming é seu canal de crescimento mais rápido. Estamos exatamente na intersecção.
+    </p>
+    <div class="market-stats">
+      <div class="market-stat">
+        <div class="market-stat-num">$103B</div>
+        <div class="market-stat-title">Mercado Mobile Gaming</div>
+        <div class="market-stat-desc">Projeção global 2026 — Newzoo. Jogos de estratégia geram 21,4% da receita com apenas 4% dos downloads.</div>
+      </div>
+      <div class="market-stat">
+        <div class="market-stat-num">130M+</div>
+        <div class="market-stat-title">Gamers no Brasil</div>
+        <div class="market-stat-desc">Nº 1 na América Latina. 78% dos brasileiros são fãs de futebol. Zero concorrente direto em português.</div>
+      </div>
+      <div class="market-stat">
+        <div class="market-stat-num">5B</div>
+        <div class="market-stat-title">Espectadores Copa 2026</div>
+        <div class="market-stat-desc">48 seleções · EUA, México e Canadá. A maior Copa da história abre a janela de aquisição mais barata da próxima década.</div>
+      </div>
+      <div class="market-stat">
+        <div class="market-stat-num">$55B</div>
+        <div class="market-stat-title">EA Sports Adquirida</div>
+        <div class="market-stat-desc">Consórcio Saudi PIF · setembro 2025. O maior buyout privado da história do entretenimento. O mercado não é hipótese — é fato.</div>
+      </div>
+    </div>
+    <div class="market-callout">
+      <strong>Football Manager 2026 Mobile é o 3º jogo mais jogado na Netflix.</strong> Sorare atingiu US$ 4,3 bilhões de valuation. O jogador que quer profundidade existe, paga e não tem onde jogar em português. Esse é o espaço exato que a Olefoot ocupa — não por acidente, por design.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     COUNTDOWN + TRACTION
+════════════════════════════════════════════ -->
+<section id="countdown-section">
+  <div class="countdown-inner">
+
+    <div class="countdown-left">
+      <div class="section-label">Janela de Lançamento</div>
+      <h2 class="section-title" style="font-size:clamp(36px,4vw,60px)">
+        A Copa começa<br>
+        em <span class="accent" id="countdown-days-display">—</span> dias.
+      </h2>
+      <div class="countdown-clock">
+        <div class="clock-unit">
+          <span class="clock-num" id="cd-days">--</span>
+          <span class="clock-label">Dias</span>
+        </div>
+        <div class="clock-unit">
+          <span class="clock-num" id="cd-hours">--</span>
+          <span class="clock-label">Horas</span>
+        </div>
+        <div class="clock-unit">
+          <span class="clock-num" id="cd-min">--</span>
+          <span class="clock-label">Min</span>
+        </div>
+        <div class="clock-unit">
+          <span class="clock-num" id="cd-sec">--</span>
+          <span class="clock-label">Seg</span>
+        </div>
+      </div>
+      <p class="countdown-desc">
+        A Copa do Mundo 2026 começa em <strong>11 de junho de 2026</strong>.
+        É o menor custo de aquisição de usuários da próxima década —
+        5 bilhões de espectadores, atenção global ao futebol por 60 dias,
+        e o Brasil como protagonista. <strong>A Olefoot lança precisamente nessa janela.</strong>
+      </p>
+    </div>
+
+    <div>
+      <div class="section-label">Tração Atual</div>
+      <h2 class="section-title" style="font-size:clamp(30px,3.5vw,48px);margin-bottom:32px">
+        O produto é real.<br>
+        <span class="italic accent">Os números também.</span>
+      </h2>
+      <div class="traction-grid">
+        <div class="traction-item">
+          <div class="traction-num">500+</div>
+          <div class="traction-info">
+            <div class="traction-title">Early Adopters</div>
+            <div class="traction-desc">Managers beta prontos para reativar no lançamento público.</div>
+          </div>
+        </div>
+        <div class="traction-item">
+          <div class="traction-num">30+</div>
+          <div class="traction-info">
+            <div class="traction-title">Contratos de Jogadores</div>
+            <div class="traction-desc">Jogadores reais assinados. Meta: 100+ até dezembro 2026.</div>
+          </div>
+        </div>
+        <div class="traction-item">
+          <div class="traction-num">17.5K</div>
+          <div class="traction-info">
+            <div class="traction-title">Meta de Contas 2026</div>
+            <div class="traction-desc">Managers ativos projetados até dezembro 2026.</div>
+          </div>
+        </div>
+        <div class="traction-item">
+          <div class="traction-num" style="font-size:22px;min-width:110px;display:flex;align-items:center;">Diego<br>Lugano</div>
+          <div class="traction-info">
+            <div class="traction-title">Embaixador & Co-fundador</div>
+            <div class="traction-desc">Ex-capitão do Uruguai. Uma das figuras mais respeitadas do futebol sul-americano.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PITCH DECK
+════════════════════════════════════════════ -->
+<section id="deck">
+  <div class="deck-inner">
+    <div class="deck-header">
+      <div>
+        <div class="section-label">Documentos</div>
+        <h2 class="section-title" style="font-size:clamp(36px,4vw,60px);margin-bottom:8px">
+          Pitch <span class="italic accent">Deck.</span>
+        </h2>
+        <p class="section-sub" style="margin-bottom:0">Olefoot Investment Deck · Maio 2026 · Confidencial</p>
+      </div>
+      <div class="deck-actions">
+        <a href="/assets/olefoot-pitch-deck-2026.pdf" download="Olefoot-Pitch-Deck-2026.pdf" class="btn-download">Baixar PDF</a>
+        <a href="/whitepaper/" target="_blank" class="btn-download" style="background:rgba(255,210,0,0.07);border-color:rgba(255,210,0,0.3);">Ver Whitepaper</a>
+      </div>
+    </div>
+
+    <div class="deck-viewer" id="deck-viewer">
+      <iframe
+        src="/assets/olefoot-pitch-deck-2026.pdf#toolbar=1&navpanes=0&scrollbar=1"
+        title="Olefoot Pitch Deck 2026"
+        id="deck-iframe"
+      ></iframe>
+      <div class="deck-fallback" id="deck-fallback">
+        <div class="deck-fallback-icon">📄</div>
+        <p>Visualização inline não disponível neste dispositivo.</p>
+        <a href="/assets/olefoot-pitch-deck-2026.pdf" download="Olefoot-Pitch-Deck-2026.pdf" class="btn-primary" style="margin-top:8px;">Baixar Pitch Deck</a>
+      </div>
+    </div>
+    <p class="deck-note">Documento confidencial. Não distribua sem autorização da Olefoot.</p>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FORM — TENHO INTERESSE
+════════════════════════════════════════════ -->
+<section id="form-section">
+  <div class="form-section-inner">
+
+    <!-- LEFT -->
+    <div class="form-left">
+      <div class="section-label">Contato</div>
+      <h2 class="section-title" style="font-size:clamp(36px,4vw,60px);margin-bottom:20px">
+        Tenho<br><span class="italic accent">interesse.</span>
+      </h2>
+      <p class="form-left-desc">
+        Preencha o formulário e nossa equipe entrará em contato em até 48 horas com os próximos passos e documentação completa.
+      </p>
+      <div class="form-left-items">
+        <div class="form-left-item">Resposta em até 48 horas</div>
+        <div class="form-left-item">Documentação completa disponível mediante NDA</div>
+        <div class="form-left-item">Round aberto · estrutura flexível para anjos e fundos</div>
+      </div>
+      <div class="form-divider"></div>
+      <span class="confidential-tag">Informações tratadas com confidencialidade</span>
+    </div>
+
+    <!-- FORM -->
+    <div>
+      <form class="investor-form" id="investor-form" onsubmit="handleInvestorSubmit(event)">
+
+        <input type="hidden" name="_subject" value="Investidor com interesse — Olefoot">
+        <input type="hidden" name="_language" value="pt">
+
+        <div class="form-row">
+          <div class="form-group">
+            <div class="form-label">Nome</div>
+            <input class="form-input" type="text" name="nome" placeholder="Seu nome" required>
+          </div>
+          <div class="form-group">
+            <div class="form-label">Sobrenome</div>
+            <input class="form-input" type="text" name="sobrenome" placeholder="Seu sobrenome" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <div class="form-label">Telefone</div>
+            <input class="form-input" type="tel" name="telefone" placeholder="+55 (00) 00000-0000">
+          </div>
+          <div class="form-group">
+            <div class="form-label">E-mail</div>
+            <input class="form-input" type="email" name="email" placeholder="seu@email.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">Nome da Empresa</div>
+          <input class="form-input" type="text" name="empresa" placeholder="Empresa ou fundo (opcional)">
+        </div>
+
+        <div class="confirm-group">
+          <span class="confirm-label">Entendi que envolve um investimento financeiro?</span>
+          <div class="confirm-chips">
+            <div class="confirm-chip" data-value="Sim">Sim, entendi</div>
+            <div class="confirm-chip" data-value="Não">Não, quero mais informações</div>
+          </div>
+          <input type="hidden" id="confirm-value" name="confirma_investimento">
+        </div>
+
+        <div class="form-submit-row">
+          <p class="form-disclaimer">Suas informações são tratadas com confidencialidade e não serão compartilhadas com terceiros.</p>
+          <button type="submit" class="btn-submit" id="investor-submit-btn">Enviar Contato</button>
+        </div>
+
+      </form>
+
+      <div class="form-success" id="investor-success">
+        Interesse recebido!
+        <p>Nossa equipe entrará em contato em breve. Bem-vindo ao time que está reinventando o futebol digital.</p>
+      </div>
+      <div class="form-error" id="investor-error">
+        Erro ao enviar. Verifique sua conexão e tente novamente.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-brand"><img src="assets/assinatura-amarelo.png" alt="Olefoot"></a>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/olefootbr/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="https://www.youtube.com/@olefoot" target="_blank" rel="noopener noreferrer">YouTube</a>
+    <a href="https://www.linkedin.com/company/olefoot" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+  <div class="footer-legal">© 2026 Olefoot. Todos os direitos reservados. Documento confidencial.</div>
+</footer>
+
+<script>
+  // ─── Countdown to Copa 2026 ───────────────────────────────────────
+  const COPA_DATE = new Date('2026-06-11T12:00:00-03:00');
+
+  function updateCountdown() {
+    const now  = new Date();
+    const diff = COPA_DATE - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent  = '0';
+      document.getElementById('cd-hours').textContent = '0';
+      document.getElementById('cd-min').textContent   = '0';
+      document.getElementById('cd-sec').textContent   = '0';
+      const el = document.getElementById('countdown-days-display');
+      if (el) el.textContent = '0';
+      return;
+    }
+    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-days').textContent  = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-min').textContent   = String(mins).padStart(2, '0');
+    document.getElementById('cd-sec').textContent   = String(secs).padStart(2, '0');
+
+    const el = document.getElementById('countdown-days-display');
+    if (el) el.textContent = days;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ─── Confirm investment chips ─────────────────────────────────────
+  document.querySelectorAll('.confirm-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.confirm-chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      document.getElementById('confirm-value').value = chip.dataset.value;
+    });
+  });
+
+  // ─── PDF embed fallback ───────────────────────────────────────────
+  const iframe = document.getElementById('deck-iframe');
+  if (iframe) {
+    iframe.addEventListener('error', () => {
+      iframe.style.display = 'none';
+      document.getElementById('deck-fallback').style.display = 'flex';
+    });
+    // iOS/mobile fallback — PDF in iframe often doesn't render
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      iframe.style.display = 'none';
+      document.getElementById('deck-fallback').style.display = 'flex';
+    }
+  }
+
+  // ─── Investor form — Formspree ────────────────────────────────────
+  const FORMSPREE_ID = 'mqewyqeg';
+
+  async function handleInvestorSubmit(e) {
+    e.preventDefault();
+    const form   = document.getElementById('investor-form');
+    const btn    = document.getElementById('investor-submit-btn');
+    const errEl  = document.getElementById('investor-error');
+
+    btn.disabled    = true;
+    btn.textContent = 'Enviando…';
+    errEl.style.display = 'none';
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method:  'POST',
+        body:    new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('investor-success').style.display = 'block';
+      } else {
+        throw new Error('not ok');
+      }
+    } catch {
+      btn.disabled    = false;
+      btn.textContent = 'Enviar Contato';
+      errEl.style.display = 'block';
+    }
+  }
+</script>
+</body>
+</html>
