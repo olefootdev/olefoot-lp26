@@ -1540,6 +1540,64 @@
     .form-submit-row .btn-primary { text-align: center; }
     .form-disclaimer { max-width: 100%; }
   }
+
+  /* ─── HAMBURGER ──────────────────────────── */
+  .nav-hamburger {
+    display: none; flex-direction: column; justify-content: center;
+    gap: 5px; background: none; border: none; cursor: pointer;
+    padding: 6px 2px; z-index: 101; flex-shrink: 0;
+  }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--white);
+    transition: transform 0.25s, opacity 0.2s;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  @media (max-width: 900px) { .nav-hamburger { display: flex; } }
+
+  /* ─── MOBILE MENU ────────────────────────── */
+  .mobile-menu {
+    display: none; position: fixed;
+    top: 68px; left: 0; right: 0; bottom: 0;
+    background: rgba(8,8,8,0.99); z-index: 98;
+    padding: 0 28px 48px; flex-direction: column;
+    overflow-y: auto; backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255,210,0,0.1);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-nav-links { list-style: none; display: flex; flex-direction: column; padding-top: 8px; }
+  .mobile-nav-links li a {
+    display: block; font-family: var(--font-display);
+    font-size: 24px; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(245,240,232,0.4);
+    padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: color 0.2s;
+  }
+  .mobile-nav-links li a:hover,
+  .mobile-nav-links li a.active { color: var(--yellow); }
+  .mobile-menu-actions {
+    margin-top: auto; padding-top: 32px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .mobile-menu-actions .m-cta {
+    display: block; text-align: center;
+    font-family: var(--font-display); font-size: 15px; font-weight: 800;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    background: var(--yellow); color: var(--black);
+    padding: 17px; border: none; cursor: pointer; transition: background 0.2s;
+  }
+  .mobile-menu-actions .m-cta:hover { background: #fff; }
+  .mobile-menu-actions .m-login {
+    display: block; text-align: center; padding: 14px;
+    font-family: var(--font-display); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); border: 1px solid rgba(255,255,255,0.1);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .mobile-menu-actions .m-login:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
 </style>
 </head>
 <body>
@@ -1557,7 +1615,9 @@
   </ul>
   <div class="lang-switch"><a class="active" href="index.html">PT</a><span>/</span><a href="en/">EN</a></div>
   <a href="https://game.olefoot.com/login" class="nav-login">Entrar</a><a href="https://game.olefoot.com/cadastro" class="nav-cta">Criar Time</a>
+<button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-menu" id="mobile-menu"></div>
 
 <!-- HERO -->
 <section id="hero">
@@ -1980,6 +2040,49 @@
       document.documentElement.style.setProperty('--black', bg);
     });
   });
+</script>
+<script>
+  (function(){
+    var btn  = document.getElementById('nav-hamburger');
+    var menu = document.getElementById('mobile-menu');
+    var nav  = document.querySelector('nav') || document.querySelector('header.blog-nav');
+    if (!btn || !menu || !nav) return;
+
+    // Clone nav links
+    var srcLinks = nav.querySelector('.nav-links');
+    if (srcLinks) {
+      var ul = srcLinks.cloneNode(true);
+      ul.className = 'mobile-nav-links';
+      menu.appendChild(ul);
+    }
+
+    // Actions: Entrar + Criar Time
+    var actions = document.createElement('div');
+    actions.className = 'mobile-menu-actions';
+    var loginEl = nav.querySelector('.nav-login');
+    var ctaEl   = nav.querySelector('.nav-cta');
+    if (loginEl) {
+      var l = document.createElement('a');
+      l.href = loginEl.href; l.textContent = loginEl.textContent.trim();
+      l.className = 'm-login'; actions.appendChild(l);
+    }
+    if (ctaEl) {
+      var c = document.createElement('a');
+      c.href = ctaEl.href; c.textContent = ctaEl.textContent.trim();
+      c.className = 'm-cta'; actions.appendChild(c);
+    }
+    menu.appendChild(actions);
+
+    function toggle(open) {
+      btn.classList.toggle('open', open);
+      menu.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    btn.addEventListener('click', function(){ toggle(!menu.classList.contains('open')); });
+    menu.addEventListener('click', function(e){ if (e.target.tagName === 'A') toggle(false); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') toggle(false); });
+  })();
 </script>
 </body>
 </html>

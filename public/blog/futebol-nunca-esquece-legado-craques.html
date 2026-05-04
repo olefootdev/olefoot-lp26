@@ -41,7 +41,9 @@
   </ul>
   <div class="lang-switch"><a class="active" href="futebol-nunca-esquece-legado-craques.html">PT</a><span>/</span><a href="../en/blog/football-never-forgets-legacy.html">EN</a></div>
   <a href="https://game.olefoot.com/login" class="nav-login">Entrar</a><a href="https://game.olefoot.com/cadastro" class="nav-cta">Criar Time</a>
+<button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
+<div class="mobile-menu" id="mobile-menu"></div>
 
 <div class="blog-hero">
   <div class="blog-hero-grid"></div>
@@ -156,5 +158,48 @@
 
 <script src="data.js"></script>
 <script src="sidebar.js"></script>
+<script>
+  (function(){
+    var btn  = document.getElementById('nav-hamburger');
+    var menu = document.getElementById('mobile-menu');
+    var nav  = document.querySelector('nav') || document.querySelector('header.blog-nav');
+    if (!btn || !menu || !nav) return;
+
+    // Clone nav links
+    var srcLinks = nav.querySelector('.nav-links');
+    if (srcLinks) {
+      var ul = srcLinks.cloneNode(true);
+      ul.className = 'mobile-nav-links';
+      menu.appendChild(ul);
+    }
+
+    // Actions: Entrar + Criar Time
+    var actions = document.createElement('div');
+    actions.className = 'mobile-menu-actions';
+    var loginEl = nav.querySelector('.nav-login');
+    var ctaEl   = nav.querySelector('.nav-cta');
+    if (loginEl) {
+      var l = document.createElement('a');
+      l.href = loginEl.href; l.textContent = loginEl.textContent.trim();
+      l.className = 'm-login'; actions.appendChild(l);
+    }
+    if (ctaEl) {
+      var c = document.createElement('a');
+      c.href = ctaEl.href; c.textContent = ctaEl.textContent.trim();
+      c.className = 'm-cta'; actions.appendChild(c);
+    }
+    menu.appendChild(actions);
+
+    function toggle(open) {
+      btn.classList.toggle('open', open);
+      menu.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    btn.addEventListener('click', function(){ toggle(!menu.classList.contains('open')); });
+    menu.addEventListener('click', function(e){ if (e.target.tagName === 'A') toggle(false); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') toggle(false); });
+  })();
+</script>
 </body>
 </html>
