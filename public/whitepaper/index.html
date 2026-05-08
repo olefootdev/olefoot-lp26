@@ -583,6 +583,23 @@ pre.ascii.lite{
   .viewer-toolbar button.print{background:var(--color-neon-yellow);color:#0D0D0D}
   .viewer-toolbar button.print:hover{background:#fff}
 }
+
+/* Responsive scaling: shrink the A4 pages so they fit narrow viewports
+   (tablets/phones) without horizontal overflow or clipped text. */
+@media screen and (max-width:820px){
+  html,body{overflow-x:hidden}
+  .viewer{padding:14px 0 60px;gap:14px}
+  .page{
+    --screen-scale:calc((100vw - 12px) / 793.7px);
+    transform:scale(var(--screen-scale));
+    transform-origin:center center;
+    margin:calc((var(--screen-scale) - 1) * 148.5mm) calc((var(--screen-scale) - 1) * 105mm);
+  }
+  .viewer-toolbar{top:8px;right:8px;padding:4px;gap:4px}
+  .viewer-toolbar button{
+    font-size:8pt;padding:5px 9px;letter-spacing:0.18em;
+  }
+}
 </style>
 </head>
 <body>
