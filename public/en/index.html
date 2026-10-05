@@ -292,6 +292,12 @@
   }
   .mobile-menu-actions .m-login:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
 
+
+  .wal-ca { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: var(--white); background: #0F0F0F; border: 1px solid rgba(255,255,255,0.12); padding: 12px 14px; margin-bottom: 18px; word-break: break-all; line-height: 1.45; }
+  .wal-ca-label { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .wal-acoes { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .wal-copiar { font-family: var(--font-display); font-size: 13px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.25); padding: 15px 22px; cursor: pointer; }
+  .wal-copiar:hover { border-color: var(--yellow); color: var(--yellow); }
   /* ─── CARTEIRA (OLEWALLET + $OLEFOOT) ─────── */
   #carteira { padding: 110px 48px; background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); }
   .wal-inner { max-width: 1200px; margin: 0 auto; }
@@ -529,10 +535,15 @@
         <a href="https://dex.olefoot.ai" class="btn-primary">Open the wallet</a>
       </div>
       <div class="wal-card">
-        <div class="wal-tag">$OLEFOOT · Solana</div>
+        <div class="wal-tag">OLEFOOT · $OLEGAME · Solana</div>
         <h3>The game's<br>token</h3>
-        <p>The official $OLEFOOT address will be published here and on @olefootgame. Never buy from any other address.</p>
-        <span class="wal-soon">Coming soon</span>
+        <p>This is the only official address. Check it before you buy: any other coin with the same name is a copy.</p>
+        <div class="wal-ca-label">Official address (CA)</div>
+        <div class="wal-ca" id="wal-ca">2kE1Z2aL8ZbgKhAc8dmSXs8JuaiKjJG8egRLaj2ppump</div>
+        <div class="wal-acoes">
+          <a href="https://pump.fun/coin/2kE1Z2aL8ZbgKhAc8dmSXs8JuaiKjJG8egRLaj2ppump" class="btn-primary" target="_blank" rel="noopener noreferrer">Buy on pump.fun</a>
+          <button type="button" class="wal-copiar" data-ok="Copied" onclick="navigator.clipboard&&navigator.clipboard.writeText('2kE1Z2aL8ZbgKhAc8dmSXs8JuaiKjJG8egRLaj2ppump').then(()=>{this.textContent=this.dataset.ok})">Copy address</button>
+        </div>
       </div>
     </div>
   </div>

@@ -1599,6 +1599,12 @@
   }
   .mobile-menu-actions .m-login:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
 
+
+  .wal-ca { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: var(--white); background: #0F0F0F; border: 1px solid rgba(255,255,255,0.12); padding: 12px 14px; margin-bottom: 18px; word-break: break-all; line-height: 1.45; }
+  .wal-ca-label { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .wal-acoes { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .wal-copiar { font-family: var(--font-display); font-size: 13px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.25); padding: 15px 22px; cursor: pointer; }
+  .wal-copiar:hover { border-color: var(--yellow); color: var(--yellow); }
   /* ─── CARTEIRA (OLEWALLET + $OLEFOOT) ─────── */
   #carteira { padding: 110px 48px; background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); }
   .wal-inner { max-width: 1200px; margin: 0 auto; }
@@ -1869,10 +1875,15 @@
         <a href="https://dex.olefoot.ai" class="btn-primary">Abrir a carteira</a>
       </div>
       <div class="wal-card">
-        <div class="wal-tag">$OLEFOOT · Solana</div>
+        <div class="wal-tag">OLEFOOT · $OLEGAME · Solana</div>
         <h3>O token<br>do jogo</h3>
-        <p>O endereço oficial do $OLEFOOT será publicado aqui e no @olefootgame. Não compre de nenhum outro endereço.</p>
-        <span class="wal-soon">Em breve</span>
+        <p>Este é o único endereço oficial. Confira antes de comprar: qualquer outro com o mesmo nome é cópia.</p>
+        <div class="wal-ca-label">Endereço oficial (CA)</div>
+        <div class="wal-ca" id="wal-ca">2kE1Z2aL8ZbgKhAc8dmSXs8JuaiKjJG8egRLaj2ppump</div>
+        <div class="wal-acoes">
+          <a href="https://pump.fun/coin/2kE1Z2aL8ZbgKhAc8dmSXs8JuaiKjJG8egRLaj2ppump" class="btn-primary" target="_blank" rel="noopener noreferrer">Comprar no pump.fun</a>
+          <button type="button" class="wal-copiar" data-ok="Copiado" onclick="navigator.clipboard&&navigator.clipboard.writeText('2kE1Z2aL8ZbgKhAc8dmSXs8JuaiKjJG8egRLaj2ppump').then(()=>{this.textContent=this.dataset.ok})">Copiar endereço</button>
+        </div>
       </div>
     </div>
   </div>
