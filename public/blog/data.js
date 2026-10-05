@@ -3,6 +3,18 @@
     homeHref: "index.html",
     posts: [
       {
+        id: "por-dentro",
+        href: "por-dentro-do-olefoot.html",
+        title: "Por dentro do Olefoot: o que faz esse jogo funcionar",
+        dateLabel: "Mai. 2026"
+      },
+      {
+        id: "elifoot-olefoot",
+        href: "do-elifoot-ao-olefoot.html",
+        title: "Do Elifoot ao Olefoot: futebol de texto nunca morreu",
+        dateLabel: "Mai. 2026"
+      },
+      {
         id: "legado-craques",
         href: "futebol-nunca-esquece-legado-craques.html",
         title: "O futebol nunca esquece mais: legado dos craques",

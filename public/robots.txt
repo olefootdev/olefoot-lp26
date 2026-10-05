@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.olefoot.com/sitemap.xml
+Sitemap: https://olefoot.ai/sitemap.xml
