@@ -1598,6 +1598,25 @@
     transition: color 0.2s, border-color 0.2s;
   }
   .mobile-menu-actions .m-login:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+
+  /* ─── CARTEIRA (OLEWALLET + $OLEFOOT) ─────── */
+  #carteira { padding: 110px 48px; background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); }
+  .wal-inner { max-width: 1200px; margin: 0 auto; }
+  .wal-header { text-align: center; margin-bottom: 64px; }
+  .wal-header .section-label { justify-content: center; }
+  .wal-title { font-size: clamp(48px, 5vw, 80px); }
+  .wal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+  .wal-card { background: var(--gray); padding: 48px 40px; display: flex; flex-direction: column; }
+  .wal-tag { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--yellow); margin-bottom: 18px; }
+  .wal-card h3 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(34px, 3.2vw, 48px); line-height: 0.95; color: var(--white); margin-bottom: 16px; }
+  .wal-card p { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 28px; flex: 1; }
+  .wal-card .btn-primary { align-self: flex-start; }
+  .wal-soon { align-self: flex-start; font-family: var(--font-display); font-size: 13px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--yellow); border: 1px solid var(--yellow); padding: 15px 28px; }
+  @media (max-width: 900px) {
+    #carteira { padding: 80px 20px; }
+    .wal-grid { grid-template-columns: 1fr; }
+    .wal-card { padding: 36px 24px; }
+  }
 </style>
 </head>
 <body>
@@ -1830,6 +1849,30 @@
         <div class="exp-card-num">03 — Evolução</div>
         <div class="exp-card-title">Evolução<br>contínua</div>
         <p class="exp-card-body">O sistema aprende com cada partida jogada. Quanto mais você joga, mais inteligente o jogo fica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARTEIRA -->
+<section id="carteira">
+  <div class="wal-inner">
+    <div class="wal-header">
+      <div class="section-label">Carteira</div>
+      <h2 class="section-title wal-title">Sua chave.<br><span style="color:var(--yellow)">Sua carteira.</span></h2>
+    </div>
+    <div class="wal-grid">
+      <div class="wal-card">
+        <div class="wal-tag">OLEWALLET</div>
+        <h3>A carteira<br>da Olefoot</h3>
+        <p>Sua frase de 12 palavras, sua chave. A carteira mora fora do jogo e só você tem acesso a ela.</p>
+        <a href="https://dex.olefoot.ai" class="btn-primary">Abrir a carteira</a>
+      </div>
+      <div class="wal-card">
+        <div class="wal-tag">$OLEFOOT · Solana</div>
+        <h3>O token<br>do jogo</h3>
+        <p>O endereço oficial do $OLEFOOT será publicado aqui e no @olefootgame. Não compre de nenhum outro endereço.</p>
+        <span class="wal-soon">Em breve</span>
       </div>
     </div>
   </div>
